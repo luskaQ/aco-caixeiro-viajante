@@ -137,6 +137,8 @@ class colonia_Formigas:
                 if len(formiga.visitados) != len(self.grafo.vertices):
                     continue
 
+                formiga.percurso.append(formiga.percurso[0])
+                
                 dist = 0
                 for i in range(len(formiga.percurso) - 1):
                     saida = formiga.percurso[i]
@@ -160,22 +162,33 @@ class colonia_Formigas:
 if __name__ == "__main__":
 
     vertices = [vertice(i) for i in range(8)]
-
     estrutura_adj = lista_adj(len(vertices))
 
     arestas = [
         (0, 1, 4),
         (0, 2, 2),
         (0, 3, 7),
+        (0, 4, 3),
+        (0, 5, 8),
+        (0, 6, 6),
+        (0, 7, 5),
         (1, 2, 1),
-        (1, 4, 5),
-        (1, 5, 8),
+        (1, 3, 5),
+        (1, 4, 6),
+        (1, 5, 7),
+        (1, 6, 4),
+        (1, 7, 8),
         (2, 3, 3),
         (2, 4, 6),
         (2, 5, 4),
+        (2, 6, 7),
+        (2, 7, 5),
+        (3, 4, 2),
         (3, 5, 2),
         (3, 6, 6),
+        (3, 7, 4),
         (4, 5, 3),
+        (4, 6, 5),
         (4, 7, 7),
         (5, 6, 1),
         (5, 7, 5),
@@ -183,11 +196,10 @@ if __name__ == "__main__":
     ]
 
     for origem, destino, distancia in arestas:
-        estrutura_adj.adicionar_aresta(
-            origem, destino, distancia
-        )
+        estrutura_adj.adicionar_aresta(origem, destino, distancia)
 
     grafo = Grafo(vertices, estrutura_adj, origem=0)
+
 
     aco = colonia_Formigas(
         grafo=grafo,
